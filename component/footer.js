@@ -74,7 +74,7 @@ class CustomFooter extends HTMLElement {
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
-                    background-color: rgba(255, 255, 255, 0.1);
+                    background-color: rgba(255, 255, 255, 0.06);
                     color: white;
                     transition: all 0.3s ease;
                 }
@@ -83,6 +83,15 @@ class CustomFooter extends HTMLElement {
                     background-color: rgba(255, 255, 255, 0.2);
                     transform: translateY(-3px);
                 }
+
+                /* Brand colors for icons */
+                .social-link.linkedin { color: #0A66C2; background-color: rgba(10, 102, 194, 0.08); }
+                .social-link.instagram { color: #E1306C; background-color: rgba(225, 48, 108, 0.08); }
+                .social-link.youtube { color: #FF0000; background-color: rgba(255, 0, 0, 0.08); }
+                .social-link.kaggle { background-color: rgba(32, 190, 255, 0.06); }
+
+                .social-link svg { width: 20px; height: 20px; }
+                .social-link img { width: 20px; height: 20px; display: block; }
                 
                 .copyright {
                     text-align: center;
@@ -117,10 +126,12 @@ class CustomFooter extends HTMLElement {
                         <a href="mailto:rajsharath707@gmail.com" class="footer-link"><i data-feather="mail"></i> rajsharath707@gmail.com</a>
                         <a href="tel:+918448311723" class="footer-link"><i data-feather="phone"></i> +91 8448311723</a>
                         <div class="social-links">
-                            <a href="https://linkedin.com/in/sharath-raj-b7116a311" target="_blank" class="social-link"><i data-feather="linkedin"></i></a>
-                        <a href="https://www.instagram.com/backpack_scholar" target="_blank" class="social-link"><i data-feather="instagram"></i></a>
-                        <a href="https://youtube.com/@BackpackScholar" target="_blank" class="social-link"><i data-feather="youtube"></i></a>
-<a href="https://youtube.com/@BackpackScholar" target="_blank" class="social-link"><i data-feather="youtube"></i></a>
+                            <a href="https://linkedin.com/in/sharath-raj-b7116a311" target="_blank" class="social-link linkedin"><i data-feather="linkedin"></i></a>
+                            <a href="https://www.instagram.com/backpack_scholar" target="_blank" class="social-link instagram"><i data-feather="instagram"></i></a>
+                            <a href="https://youtube.com/@BackpackScholar" target="_blank" class="social-link youtube"><i data-feather="youtube"></i></a>
+                            <a href="https://www.kaggle.com/rajsharath707" target="_blank" class="social-link kaggle" title="Kaggle">
+                                <img src="https://www.kaggle.com/static/images/favicon.ico" alt="Kaggle" />
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -141,8 +152,19 @@ class CustomFooter extends HTMLElement {
             </div>
         `;
         
-        // Initialize icons
-        feather.replace();
+        // Replace feather icons inside the shadow DOM
+        const icons = this.shadowRoot.querySelectorAll('[data-feather]');
+        icons.forEach(el => {
+            const name = el.getAttribute('data-feather');
+            try {
+                const classes = el.getAttribute('class') || '';
+                const svg = feather.icons[name] ? feather.icons[name].toSvg({ class: classes }) : '';
+                el.outerHTML = svg;
+            } catch (e) {
+                // If feather isn't available or icon name is invalid, leave the element
+                console.warn('Feather icon replace failed for', name, e);
+            }
+        });
     }
 }
 
