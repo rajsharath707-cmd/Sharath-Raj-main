@@ -10,53 +10,50 @@ class CustomNavbar extends HTMLElement {
                     left: 0;
                     right: 0;
                     z-index: 1000;
-                    background-color: rgba(255, 255, 255, 0.95);
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                    transition: all 0.3s ease;
+                    background-color: color-mix(in srgb, var(--card) 95%, var(--bg) 5%);
+                    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+                    transition: all 0.28s ease;
                 }
-                
+
                 :host(.dark) {
-                    background-color: rgba(17, 24, 39, 0.95);
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                    background-color: color-mix(in srgb, var(--card) 92%, black 8%);
+                    box-shadow: 0 6px 24px rgba(0,0,0,0.35);
                 }
-                
+
                 .navbar-container {
                     max-width: 1200px;
                     margin: 0 auto;
-                    padding: 1rem 2rem;
+                    padding: 0.9rem 1.25rem;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                 }
-                
+
                 .logo {
-                    font-size: 1.5rem;
+                    font-size: 1.125rem;
                     font-weight: 700;
-                    color: #3b82f6;
+                    color: var(--accent);
                     text-decoration: none;
+                    letter-spacing: 0.2px;
                 }
-                
+
                 .nav-links {
                     display: flex;
-                    gap: 2rem;
+                    gap: 1.25rem;
                 }
-                
+
                 .nav-link {
-                    color: #4b5563;
+                    color: var(--muted);
                     text-decoration: none;
                     font-weight: 500;
                     position: relative;
-                    transition: color 0.3s ease;
+                    transition: color 0.22s ease;
                 }
-                
-                :host(.dark) .nav-link {
-                    color: #d1d5db;
-                }
-                
-                .nav-link:hover {
-                    color: #3b82f6;
-                }
-                
+
+                :host(.dark) .nav-link { color: var(--muted); }
+
+                .nav-link:hover { color: var(--accent); }
+
                 .nav-link::after {
                     content: '';
                     position: absolute;
@@ -64,74 +61,60 @@ class CustomNavbar extends HTMLElement {
                     height: 2px;
                     bottom: -4px;
                     left: 0;
-                    background-color: #3b82f6;
-                    transition: width 0.3s ease;
+                    background-color: color-mix(in srgb, var(--accent) 78%, var(--muted) 22%);
+                    transition: width 0.26s ease;
                 }
-                
-                .nav-link:hover::after {
-                    width: 100%;
-                }
-                
+
+                .nav-link:hover::after { width: 100%; }
+
                 .mobile-menu-btn {
                     display: none;
                     background: none;
                     border: none;
-                    color: #4b5563;
+                    color: var(--muted);
                     cursor: pointer;
                 }
-                
-                :host(.dark) .mobile-menu-btn {
-                    color: #d1d5db;
-                }
-                
+
+                :host(.dark) .mobile-menu-btn { color: var(--muted); }
+
                 .theme-toggle {
                     background: none;
                     border: none;
-                    color: #4b5563;
+                    color: var(--muted);
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 0.5rem;
+                    padding: 0.45rem;
                     border-radius: 50%;
-                    transition: all 0.3s ease;
+                    transition: background-color 0.18s ease, transform 0.18s ease;
                 }
-                
-                :host(.dark) .theme-toggle {
-                    color: #d1d5db;
-                }
-                
-                .theme-toggle:hover {
-                    background-color: rgba(59, 130, 246, 0.1);
-                }
-                
+
+                :host(.dark) .theme-toggle { color: var(--muted); }
+
+                .theme-toggle:hover { background-color: color-mix(in srgb, var(--accent) 10%, transparent 90%); }
+
                 @media (max-width: 768px) {
                     .nav-links {
                         position: fixed;
-                        top: 70px;
+                        top: 66px;
                         left: 0;
                         right: 0;
-                        background-color: white;
+                        background-color: var(--card);
                         flex-direction: column;
                         align-items: center;
-                        padding: 2rem;
-                        gap: 1.5rem;
-                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                        padding: 1.5rem;
+                        gap: 1rem;
+                        box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.06);
                         transform: translateY(-150%);
-                        transition: transform 0.3s ease;
+                        transition: transform 0.28s ease;
                     }
-                    
-                    :host(.dark) .nav-links {
-                        background-color: #1f2937;
-                    }
-                    
-                    .nav-links.active {
-                        transform: translateY(0);
-                    }
-                    
-                    .mobile-menu-btn {
-                        display: block;
-                    }
+
+                    :host(.dark) .nav-links { background-color: color-mix(in srgb, var(--card) 88%, black 8%); }
+
+                    .nav-links.active { transform: translateY(0); }
+
+                    .mobile-menu-btn { display: block; }
                 }
             </style>
             

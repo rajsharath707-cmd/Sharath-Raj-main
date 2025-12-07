@@ -35,22 +35,23 @@ class ThemeToggle extends HTMLElement {
         
         const button = this.shadowRoot.querySelector('button');
         
-        // Check for saved theme preference or use system preference
+        // Prefer a light theme by default. Only enable dark if user explicitly saved it.
         const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+
+        if (savedTheme === 'dark') {
             document.documentElement.classList.add('dark');
             button.innerHTML = '<i data-feather="sun"></i>';
         } else {
+            // default to light theme to keep content clear and non-contrasting
             document.documentElement.classList.remove('dark');
             button.innerHTML = '<i data-feather="moon"></i>';
+            if (!savedTheme) localStorage.setItem('theme', 'light');
         }
         
         // Toggle theme on button click
         button.addEventListener('click', () => {
             const isDark = document.documentElement.classList.toggle('dark');
-            
+
             if (isDark) {
                 button.innerHTML = '<i data-feather="sun"></i>';
                 localStorage.setItem('theme', 'dark');
@@ -58,7 +59,7 @@ class ThemeToggle extends HTMLElement {
                 button.innerHTML = '<i data-feather="moon"></i>';
                 localStorage.setItem('theme', 'light');
             }
-            
+
             feather.replace();
         });
         

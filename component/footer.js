@@ -5,108 +5,50 @@ class CustomFooter extends HTMLElement {
             <style>
                 :host {
                     display: block;
-                    background-color: #1e40af;
-                    color: white;
-                    padding: 3rem 1rem;
+                    background-color: color-mix(in srgb, var(--bg) 92%, var(--card) 8%);
+                    color: var(--text);
+                    padding: 2.5rem 1rem;
                 }
-                
-                :host(.dark) {
-                    background-color: #1e3a8a;
-                }
-                
+
+                :host(.dark) { background-color: color-mix(in srgb, var(--card) 88%, black 8%); color: var(--text); }
+
                 .footer-container {
                     max-width: 1200px;
                     margin: 0 auto;
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 2rem;
+                    gap: 1.5rem;
                 }
-                
-                .footer-section h3 {
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    margin-bottom: 1.5rem;
-                    position: relative;
-                }
-                
+
+                .footer-section h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; position: relative; }
+
                 .footer-section h3::after {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    bottom: -8px;
-                    width: 50px;
-                    height: 2px;
-                    background-color: #93c5fd;
-                }
-                
-                .footer-links {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.75rem;
-                }
-                
-                .footer-link {
-                    color: #bfdbfe;
-                    text-decoration: none;
-                    transition: color 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                }
-                
-                .footer-link:hover {
-                    color: white;
-                }
-                
-                .footer-link i {
-                    margin-right: 0.5rem;
-                }
-                
-                .social-links {
-                    display: flex;
-                    gap: 1rem;
-                    margin-top: 1rem;
-                }
-                
-                .social-link {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    background-color: rgba(255, 255, 255, 0.06);
-                    color: white;
-                    transition: all 0.3s ease;
-                }
-                
-                .social-link:hover {
-                    background-color: rgba(255, 255, 255, 0.2);
-                    transform: translateY(-3px);
+                    content: ''; position: absolute; left: 0; bottom: -8px; width: 44px; height: 2px;
+                    background-color: color-mix(in srgb, var(--accent) 62%, var(--muted) 38%);
                 }
 
-                /* Brand colors for icons */
-                .social-link.linkedin { color: #0A66C2; background-color: rgba(10, 102, 194, 0.08); }
-                .social-link.instagram { color: #E1306C; background-color: rgba(225, 48, 108, 0.08); }
-                .social-link.youtube { color: #FF0000; background-color: rgba(255, 0, 0, 0.08); }
-                .social-link.kaggle { background-color: rgba(32, 190, 255, 0.06); }
+                .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
 
-                .social-link svg { width: 20px; height: 20px; }
-                .social-link img { width: 20px; height: 20px; display: block; }
-                
-                .copyright {
-                    text-align: center;
-                    margin-top: 3rem;
-                    padding-top: 1.5rem;
-                    border-top: 1px solid rgba(255, 255, 255, 0.1);
-                    color: #bfdbfe;
-                    font-size: 0.875rem;
-                }
-                
-                @media (max-width: 768px) {
-                    .footer-container {
-                        grid-template-columns: 1fr;
-                    }
-                }
+                .footer-link { color: inherit; text-decoration: none; transition: color 0.18s ease; display: flex; align-items: center; }
+                .footer-link:hover { color: color-mix(in srgb, var(--accent) 78%, var(--muted) 22%); }
+                .footer-link i { margin-right: 0.5rem; }
+
+                .social-links { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+
+                .social-link { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background-color: color-mix(in srgb, var(--accent) 8%, transparent 92%); color: var(--text); transition: transform 0.18s ease, background-color 0.18s ease; }
+                .social-link:hover { transform: translateY(-3px); background-color: color-mix(in srgb, var(--accent) 14%, transparent 86%); }
+
+                /* Brand tints (soft) */
+                .social-link.linkedin { color: #0A66C2; background-color: rgba(10,102,194,0.06); }
+                .social-link.instagram { color: #E1306C; background-color: rgba(225,48,108,0.06); }
+                .social-link.youtube { color: #FF0000; background-color: rgba(255,0,0,0.06); }
+                .social-link.kaggle { background-color: rgba(32,190,255,0.05); }
+
+                .social-link svg, .social-link img { width: 18px; height: 18px; }
+
+                .copyright { text-align:center; margin-top:2rem; padding-top:1rem; border-top:1px solid color-mix(in srgb, var(--muted) 30%, transparent 70%); color: color-mix(in srgb, var(--muted) 72%, black 8%); font-size:0.875rem; }
+
+                @media (max-width: 768px) { .footer-container { grid-template-columns: 1fr; } }
             </style>
             
             <div class="footer-container">

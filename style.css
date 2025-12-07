@@ -2,116 +2,75 @@
 
 body {
     font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
 }
+
+/* Light-first muted, low-contrast palette */
+:root {
+    --bg: #f6f7f9;        /* very light neutral */
+    --card: #ffffff;      /* card/background */
+    --text: #25303a;      /* softer than pure black */
+    --muted: #6b7280;     /* subdued gray for secondary text */
+    --accent: #2b6fb0;    /* calm desaturated blue */
+    --soft-shadow: rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+    --bg: #0b1220;       /* preserve dark variables if user chooses */
+    --card: #0f1724;
+    --text: #e6eef8;
+    --muted: #9ca3af;
+    --accent: #60a5fa;
+    --soft-shadow: rgba(0,0,0,0.45);
+}
+
+/* Make Tailwind utility colors more aligned with our variables (light-first, low contrast)
+   These overrides use specificity to ensure a consistent low-contrast look while keeping
+   the convenience of utility classes in the markup. */
+.bg-gray-50 { background-color: var(--bg) !important; }
+.text-gray-800 { color: var(--text) !important; }
+.text-gray-600 { color: var(--muted) !important; }
+.bg-white { background-color: var(--card) !important; }
+.bg-gray-100 { background-color: color-mix(in srgb, var(--bg) 85%, black 5%) !important; }
+.dark\:bg-gray-800 { background-color: var(--card) !important; }
+.dark\:bg-gray-700 { background-color: color-mix(in srgb, var(--card) 85%, black 8%) !important; }
+
+.text-blue-600, .text-blue-500 { color: var(--accent) !important; }
+.bg-blue-600, .bg-blue-500 { background-color: var(--accent) !important; }
+.hover\:bg-blue-700:hover { background-color: color-mix(in srgb, var(--accent) 85%, black 10%) !important; }
+
+/* Softer shadows for cards and nav */
+.shadow-md, .shadow-lg, .shadow-lg:hover { box-shadow: 0 6px 18px var(--soft-shadow) !important; }
 
 /* Smooth scrolling for anchor links */
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 /* Animation for sections */
-section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
+section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+section.visible { opacity: 1; transform: translateY(0); }
 
-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* Custom scrollbar tuned for light theme */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 65%, var(--muted) 25%); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 75%, black 10%); }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
+/* Pulse animation (keep subtle) */
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+.pulse-animation { animation: pulse 2.4s infinite; }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
+/* Underline animation for links (delicate) */
+.link-underline { position: relative; }
+.link-underline::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: color-mix(in srgb, var(--accent) 70%, var(--muted) 30%); transition: width 0.28s ease; }
+.link-underline:hover::after { width: 100%; }
 
-::-webkit-scrollbar-thumb {
-    background: #3b82f6;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #2563eb;
-}
-
-.dark ::-webkit-scrollbar-track {
-    background: #1f2937;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-    background: #60a5fa;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: #3b82f6;
-}
-
-/* Pulse animation for call-to-action */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.pulse-animation {
-    animation: pulse 2s infinite;
-}
-
-/* Custom underline animation */
-.link-underline {
-    position: relative;
-}
-
-.link-underline::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -2px;
-    left: 0;
-    background-color: #3b82f6;
-    transition: width 0.3s ease;
-}
-
-.link-underline:hover::after {
-    width: 100%;
-}
-
-/* Tooltip styles */
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
+/* Tooltip styles (lighter) */
+.tooltip { position: relative; display: inline-block; }
 .tooltip .tooltip-text {
-    visibility: hidden;
-    width: 120px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    visibility: hidden; width: 140px; background-color: rgba(37,48,58,0.95); color: #fff; text-align: center; border-radius: 6px; padding: 6px 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.22s; font-size: 0.875rem;
 }
+.tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
 
-.tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
+/* Small accessibility tweak: ensure focus outlines are visible but subtle */
+*:focus { outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent 45%); outline-offset: 2px; }
